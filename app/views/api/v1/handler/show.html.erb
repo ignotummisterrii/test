@@ -1,1 +1,44 @@
-<h1>hola</h1>
+<%= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true&.js' %>
+<%= javascript_include_tag 'https://rawgit.com/HPNeo/gmaps/master/gmaps.js' %>
+<style>
+	html,body {
+		padding: 0;
+		margin:0;
+	}
+	#map {
+		width: 100%;
+		height: 100%;
+		background: #58B;
+	}
+</style>
+
+<div id="map"></div>
+
+<%= javascript_tag do %>
+	let vehicles = <%=@vehicles.html_safe%>
+	let last_vehicle = vehicles[vehicles.length - 1] 
+
+	let map = new GMaps({
+		div: '#map',
+		lat: last_vehicle.last_way_point.latitude,
+		lng: last_vehicle.last_way_point.longitude
+	});
+
+	vehicles.map(function (x) {
+		let content = '<ul>'
+		Object.entries(x.last_way_point).forEach(([key, value]) => {
+			content += '<li><strong>' + key + ': </strong>' + value
+		})
+		content +='</ul>' 
+
+		map.addMarker({
+		  lat: x.last_way_point.latitude,
+		  lng: x.last_way_point.longitude,
+		  title: x.identifier,
+  		infoWindow: {
+  			content: content
+			}
+		})
+	})
+	
+<% end %>

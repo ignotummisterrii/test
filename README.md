@@ -1,25 +1,26 @@
-# README
+* Ruby version 2.4.0
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
+* Rails version 5.0.6
 
 * System dependencies
+	redis
 
 * Configuration
 
 * Database creation
+	rake db:drop db:create
 
 * Database initialization
+	rake db:migrate
 
 * How to run the test suite
+	
 
-* Services (job queues, cache servers, search engines, etc.)
+* Services
+	rails s
+	redis-server
+	sidekiq -c 1
 
 * Deployment instructions
-
-* ...
+	
 
