@@ -3,7 +3,7 @@ class CreateWayPoints < ActiveRecord::Migration[5.0]
     create_table :way_points do |t|
       t.float :latitude
       t.float :longitude
-      t.date :sent_at
+      t.datetime :sent_at
       t.string :vehicle_identifier
       t.references :vehicle, foreign_key: true
 

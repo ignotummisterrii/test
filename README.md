@@ -3,24 +3,22 @@
 * Rails version 5.0.6
 
 * System dependencies
-	redis
+	*redis
 
 * Configuration
+	
+* Develepment database creation 
+	*rake db:drop db:create db:migrate
+	*rake test:create (test data)
 
-* Database creation
-	rake db:drop db:create
-
-* Database initialization
-	rake db:migrate
+* Development Services
+	*rails s
+	*redis-server
+	*sidekiq -c 1
 
 * How to run the test suite
-	
-
-* Services
-	rails s
-	redis-server
-	sidekiq -c 1
+	*bundle exec rspec -fd
 
 * Deployment instructions
-	
+		
 

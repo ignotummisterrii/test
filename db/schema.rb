@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180228224918) do
   create_table "way_points", force: :cascade do |t|
     t.float    "latitude"
     t.float    "longitude"
-    t.date     "sent_at"
+    t.datetime "sent_at"
     t.string   "vehicle_identifier"
     t.integer  "vehicle_id"
     t.datetime "created_at",         null: false
