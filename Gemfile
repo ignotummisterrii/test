@@ -43,7 +43,8 @@ group :development do
   gem "capistrano-rails", "~> 1.3", require: false
   gem 'capistrano3-puma',   require: false
   gem 'capistrano-local-precompile', '~> 1.0.0', require: false
-
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+  
 end
 
 

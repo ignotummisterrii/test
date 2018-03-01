@@ -27,7 +27,7 @@ module Beetrack
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
 
-    config.assets.precompile += ["assets/js/*", "assets/css/*"]
+
 
     config.autoload_paths << Rails.root.join('app/workers')
     config.api_only = true

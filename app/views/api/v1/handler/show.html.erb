@@ -18,27 +18,33 @@
 	let vehicles = <%=@vehicles.html_safe%>
 	let last_vehicle = vehicles[vehicles.length - 1] 
 
-	let map = new GMaps({
-		div: '#map',
-		lat: last_vehicle.last_way_point.latitude,
-		lng: last_vehicle.last_way_point.longitude
-	});
 
-	vehicles.map(function (x) {
-		let content = '<ul>'
-		Object.entries(x.last_way_point).forEach(([key, value]) => {
-			content += '<li><strong>' + key + ': </strong>' + value
-		})
-		content +='</ul>' 
+	if (vehicles.size) {
+		let map = new GMaps({
+			div: '#map',
+			lat: last_vehicle.last_way_point.latitude,
+			lng: last_vehicle.last_way_point.longitude
+		});
 
-		map.addMarker({
-		  lat: x.last_way_point.latitude,
-		  lng: x.last_way_point.longitude,
-		  title: x.identifier,
-  		infoWindow: {
-  			content: content
-			}
+		vehicles.map(function (x) {
+			let content = '<ul>'
+			Object.entries(x.last_way_point).forEach(([key, value]) => {
+				content += '<li><strong>' + key + ': </strong>' + value
+			})
+			content +='</ul>' 
+
+			map.addMarker({
+			  lat: x.last_way_point.latitude,
+			  lng: x.last_way_point.longitude,
+			  title: x.identifier,
+	  		infoWindow: {
+	  			content: content
+				}
+			})
 		})
-	})
+	}
+	else {
+		alert("No hay Vehiculos Registrados")
+	}
 	
 <% end %>

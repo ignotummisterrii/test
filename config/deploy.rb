@@ -15,7 +15,7 @@ set :puma_workers,    0
 
 
 # Don't change these unless you know what you're doing
-set :pty,             true
+set :pty,             false
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
@@ -34,8 +34,33 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 
-set :nginx_sites_available_path, "/etc/nginx/sites-available"
-set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
+
+set :sidekiq_default_hooks => true
+set :sidekiq_pid => File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid') # ensure this path exists in production before deploying.
+set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+set :sidekiq_log => File.join(shared_path, 'log', 'sidekiq.log')
+set :sidekiq_options => nil
+set :sidekiq_require => nil
+set :sidekiq_tag => nil
+set :sidekiq_config => nil # if you have a config/sidekiq.yml, do not forget to set this. 
+set :sidekiq_queue => nil
+set :sidekiq_timeout => 10
+set :sidekiq_roles => :app
+set :sidekiq_processes => 1
+set :sidekiq_options_per_process => nil
+set :sidekiq_concurrency => nil
+
+# sidekiq monit
+set :sidekiq_monit_templates_path => 'config/deploy/templates'
+set :sidekiq_monit_conf_dir => '/etc/monit/conf.d'
+set :sidekiq_monit_use_sudo => true
+set :monit_bin => '/usr/bin/monit'
+set :sidekiq_monit_default_hooks => true
+set :sidekiq_monit_group => nil
+
+
+
+
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -47,7 +72,16 @@ namespace :puma do
     end
   end
 
+  task :services do
+    on roles(:app) do
+      execute "redis-server --daemonize yes"
+      invoke "sidekiq:start"
+      execute "sudo service nginx restart"
+    end
+  end
+
   before :start, :make_dirs
+  before :start, :services
 end
 
 namespace :deploy do
@@ -62,23 +96,7 @@ namespace :deploy do
       end
     end
   end
-
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke!("puma:restart")
-    end
-  end
-
-
+  
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

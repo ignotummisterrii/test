@@ -24,6 +24,9 @@ require 'capistrano/rails/migrations'
 require 'capistrano/rvm'
 require 'capistrano/puma'
 
+# Capfile
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
 
 install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma
