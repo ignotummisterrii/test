@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.10.1"
 
-server 'your_server_ip', port: your_port_num, roles: [:web, :app, :db], primary: true
+server 'localhost', port: 3000, roles: [:web, :app, :db], primary: true
 
 set :deploy_to, "/var/www/test"
 
