@@ -15,16 +15,19 @@ require "capistrano/deploy"
 require "capistrano/scm/git"
 
 require 'capistrano/bundler' 
-require 'capistrano/rails/assets'
+
+require 'capistrano/local_precompile'
 require 'capistrano/rails/migrations'
 
-require 'capistrano/rails'
-require 'capistrano/bundler'
+
+#require 'capistrano/rails/migrations'
 require 'capistrano/rvm'
 require 'capistrano/puma'
 
+
 install_plugin Capistrano::SCM::Git
-install_plugin Capistrano::Puma  
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Nginx  
  
 
 # Include tasks from other gems included in your Gemfile

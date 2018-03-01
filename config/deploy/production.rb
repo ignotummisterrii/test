@@ -24,7 +24,9 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
+role :app, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
+role :web, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
+role :db, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
 
 # Configuration
 # =============
@@ -67,5 +69,11 @@
 set :ssh_options, {
   forward_agent: true,
   auth_methods: ["publickey"],
-  keys: ["/mtn/c/Users/zesho/Desktop/daniel.pem"]
+  keys: ["/mnt/c/Users/zesho/Desktop/daniel.pem"]
+}
+
+
+set :default_env, { 
+  'RAILS_ENV' => 'production',
+  'SECRET_KEY_BASE' => 'a5911fa0f8710b67f4cf89c6073f5a98e3bbe8ed3665717935f130de01f8d9901e91b3ca286f806e9c32b7f65f0945970531788ba0ea7e6d825a0d2582fc8fed'
 }
