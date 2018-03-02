@@ -66,7 +66,7 @@ namespace :puma do
       execute "redis-server --daemonize yes"
       invoke!("sidekiq:stop")
       invoke!("sidekiq:start")
-      execute "sudo rm /etc/nginx/sites-enabled/default"
+      execute "sudo rm -f /etc/nginx/sites-enabled/default"
       invoke!("puma:nginx_config")
       execute "sudo service nginx restart"
       invoke!("puma:stop")
