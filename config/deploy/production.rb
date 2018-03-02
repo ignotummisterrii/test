@@ -24,9 +24,9 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-role :app, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
-role :web, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
-role :db, "ubuntu@ec2-18-218-149-45.us-east-2.compute.amazonaws.com"
+role :app, "ubuntu@ec2-18-217-8-156.us-east-2.compute.amazonaws.com"
+role :web, "ubuntu@ec2-18-217-8-156.us-east-2.compute.amazonaws.com"
+role :db, "ubuntu@ec2-18-217-8-156.us-east-2.compute.amazonaws.com"
 
 # Configuration
 # =============
