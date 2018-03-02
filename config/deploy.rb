@@ -46,6 +46,10 @@ set :sidekiq_monit_default_hooks => true
 set :sidekiq_monit_group => nil
 
 
+#Rails console
+set :console_role, :app # start remote console on primary server for this role
+set :console_user, :ubuntu # run rails console as appuser through sudo
+
 #Puma task
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket and Log'

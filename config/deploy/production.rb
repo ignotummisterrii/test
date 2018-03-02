@@ -77,3 +77,4 @@ set :default_env, {
   'RAILS_ENV' => 'production',
   'SECRET_KEY_BASE' => 'a5911fa0f8710b67f4cf89c6073f5a98e3bbe8ed3665717935f130de01f8d9901e91b3ca286f806e9c32b7f65f0945970531788ba0ea7e6d825a0d2582fc8fed'
 }
+

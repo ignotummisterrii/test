@@ -10,6 +10,7 @@ require 'capistrano/rvm'
 require 'capistrano/puma'
 require 'capistrano/sidekiq'
 require 'capistrano/sidekiq/monit' 
+require 'capistrano/rails/console'
 
 install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma

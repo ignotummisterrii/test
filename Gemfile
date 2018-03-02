@@ -44,6 +44,7 @@ group :development do
   gem 'capistrano3-puma',   require: false
   gem 'capistrano-local-precompile', '~> 1.0.0', require: false
   gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+  gem 'capistrano-rails-console', require: false
   
 end
 
