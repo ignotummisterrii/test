@@ -75,13 +75,26 @@ namespace :puma do
   task :services do
     on roles(:app) do
       execute "redis-server --daemonize yes"
+      invoke "sidekiq:stop"
       invoke "sidekiq:start"
       execute "sudo service nginx restart"
+      invoke "puma:stop"
+    end
+  end
+
+  task :restart_services do
+    on roles(:app) do
+      execute "redis-server --daemonize yes"
+      invoke "sidekiq:stop"
+      invoke "sidekiq:start"
+      execute "sudo service nginx restart"
+      invoke "puma:stop"
     end
   end
 
   before :start, :make_dirs
   before :start, :services
+  before :restart, :restart_services
 end
 
 namespace :deploy do

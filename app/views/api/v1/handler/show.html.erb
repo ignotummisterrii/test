@@ -15,36 +15,37 @@
 <div id="map"></div>
 
 <%= javascript_tag do %>
-	let vehicles = <%=@vehicles.html_safe%>
-	let last_vehicle = vehicles[vehicles.length - 1] 
 
+	window.onload = () => {
+		let vehicles = <%=@vehicles.html_safe%>
+		let last_vehicle = vehicles[vehicles.length - 1] 
+		if (Object.entries(vehicles).length) {
+			let map = new GMaps({
+				div: '#map',
+				lat: last_vehicle.last_way_point.latitude,
+				lng: last_vehicle.last_way_point.longitude
+			});
 
-	if (vehicles.size) {
-		let map = new GMaps({
-			div: '#map',
-			lat: last_vehicle.last_way_point.latitude,
-			lng: last_vehicle.last_way_point.longitude
-		});
+			vehicles.map(function (x) {
+				let content = '<ul>'
+				Object.entries(x.last_way_point).forEach(([key, value]) => {
+					content += '<li><strong>' + key + ': </strong>' + value
+				})
+				content +='</ul>' 
 
-		vehicles.map(function (x) {
-			let content = '<ul>'
-			Object.entries(x.last_way_point).forEach(([key, value]) => {
-				content += '<li><strong>' + key + ': </strong>' + value
+				map.addMarker({
+				  lat: x.last_way_point.latitude,
+				  lng: x.last_way_point.longitude,
+				  title: x.identifier,
+		  		infoWindow: {
+		  			content: content
+					}
+				})
 			})
-			content +='</ul>' 
-
-			map.addMarker({
-			  lat: x.last_way_point.latitude,
-			  lng: x.last_way_point.longitude,
-			  title: x.identifier,
-	  		infoWindow: {
-	  			content: content
-				}
-			})
-		})
-	}
-	else {
-		alert("No hay Vehiculos Registrados")
+		}
+		else {
+			alert("No hay Vehiculos Registrados")
+		}
 	}
 	
 <% end %>
